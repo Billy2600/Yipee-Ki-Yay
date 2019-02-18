@@ -3,14 +3,12 @@
 function EntityPlayer()
 {
     // Public variables
-    this.hitbox = {x: 100, y: 100, w: 16, h: 16}
+    this.hitbox = {x: 22, y: 12, w: 16, h: 16}
     this.deleteMe = false;
     this.rotation = 0; // Current rotation (degrees)
     
     // Private variables
     // Physics stuff
-    var xVel = 0; // X velocity
-    var yVel = 0; // Y velocity
     var accel = 3; // Acceleration added per frame
     var speedLimit = 5; // Speed limit
     var rotationSpeed = 15;
@@ -54,10 +52,10 @@ function EntityPlayer()
             newPos.y += Math.sin((this.rotation + 90) * Math.PI / 180) * accel;
         }
 		
-        if(!tilemap.TryMove( {x: newPos.x, y: this.hitbox.y, w: this.hitbox.w, h: this.hitbox.h} ))
-            this.hitbox.x = newPos.x;
-        if(!tilemap.TryMove( {x: this.hitbox.x, y: newPos.y, w: this.hitbox.w, h: this.hitbox.h} ))
-            this.hitbox.y = newPos.y;
+        // if(!tilemap.TryMove( {x: newPos.x, y: this.hitbox.y, w: this.hitbox.w, h: this.hitbox.h} ))
+             this.hitbox.x = newPos.x;
+        // if(!tilemap.TryMove( {x: this.hitbox.x, y: newPos.y, w: this.hitbox.w, h: this.hitbox.h} ))
+             this.hitbox.y = newPos.y;
     }
 
     this.Think = function(ctx, time)

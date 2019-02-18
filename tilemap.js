@@ -57,9 +57,17 @@ function Tilemap()
         ).done(function(data1) {
             map = data1;
             console.log("Map loaded");
-            $.getJSON(map.tilesets[0].source, function(data2) { tileset = data2 });
+            $.getJSON(map.tilesets[0].source, function(data2) {
+                tileset = data2
+            });
             console.log("Tileset loaded");
         });
+    }
+
+    // Return foreground layer
+    this.GetForeground = function()
+    {
+        return map.layers[fg];
     }
     
     // Check if a move is valid, must provide rect
@@ -142,7 +150,7 @@ function Tilemap()
             var t = this.GetTileClip(tileNum);
             
             // Draw it out
-            var tileRect = {x: x, y: y, w: map.tilewidth, h: map.tileheight };
+            var tileRect =  { x: x, y: y, w: map.tilewidth, h: map.tileheight };
             // Do not draw if this tile is on background and there's a tile in front
             // or if it is outside the camera
             if( tileNum > 0 && ((layerNum == bg && map.layers[fg].data[i] == 0) || layerNum == fg) && CheckCollision(camera, tileRect) )

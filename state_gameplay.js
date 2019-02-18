@@ -5,11 +5,12 @@ function StateGameplay()
     // Private variables
     var player = new EntityPlayer();
     var tilemap = new Tilemap();
+    var renderer = new Renderer();
     var entityManager = new EntityManager();
     // Camera rectangle
     var camera = { x: 0, y: 0, w: 0, h: 0 }; // Must be same width/height as canvas
 
-    this.Start = function() // g stands for global
+    this.Start = function()
     {
         tilemap.Load("testmap.json", entityManager);
     }
@@ -19,6 +20,8 @@ function StateGameplay()
         // Move player 
         player.Move(tilemap, keys, timer);
         player.SetCamera(camera);
+
+        renderer.SetWorldMap(tilemap.GetForeground());
     }
 
     this.Draw = function(ctx, w, h) // ctx is the canvas, w = width, h = height
@@ -32,13 +35,14 @@ function StateGameplay()
             return;
         }
 
-        tilemap.Draw(ctx, camera);
-		player.Draw(ctx, camera);
+        //tilemap.Draw(ctx, camera);
+        //player.Draw(ctx, camera);
+        renderer.Draw(ctx, w, h, player.hitbox);
         
         // hud
         var text1 = "Position: " + Math.floor(player.hitbox.x) + "," + Math.floor(player.hitbox.y);
         var text2 = "Rotation: " + player.rotation;
-        var text3 = "Use arrow keys to move/jump";
+        var text3 = "Use WASD keys to move";
         var text4 = "";
         ctx.fillStyle = "white";
         ctx.font="15px Verdana";
